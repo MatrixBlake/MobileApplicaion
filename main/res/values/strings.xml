@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">homework1</string>
+    <string name="dialog_delete_title">Delete an item</string>
+    <string name="dialog_delete_msg">Do you want to delete this item?</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="edit">Edit</string>
+    <string name="dialog_cancel_title">Cancel the change</string>
+    <string name="dialog_cancel_msg">Are you sure to give up this edit? Your unsaved edit will be discarded if you click YES</string>
+
+</resources>
