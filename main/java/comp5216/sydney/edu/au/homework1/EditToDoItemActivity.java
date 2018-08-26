@@ -7,13 +7,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.Date;
 
 
 public class EditToDoItemActivity extends Activity {
 	public int position=0;
-	EditText etItem; 
+	EditText etItem;
+	TextView etDate;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -29,6 +31,12 @@ public class EditToDoItemActivity extends Activity {
 		// show original content in the text field
 		etItem = (EditText)findViewById(R.id.etEditItem);
 		etItem.setText(origin_name);
+
+		//show origianl date in the text field
+		if(origin_date!=null){
+			etDate=findViewById(R.id.textView2);
+			etDate.setText(origin_date);
+		}
 
 
 	}

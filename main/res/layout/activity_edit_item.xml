@@ -11,6 +11,7 @@
         android:text="@string/edit" />
 
 
+
     <EditText
         android:id="@+id/etEditItem"
         android:layout_width="wrap_content"
@@ -21,12 +22,19 @@
         <requestFocus />
     </EditText>
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etEditItem"
+        android:text="" />
+
     <Button
         android:id="@+id/btnSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/etEditItem"
-        android:layout_below="@+id/etEditItem"
+        android:layout_below="@+id/textView2"
         android:layout_marginTop="25dp"
         android:onClick="onSubmit"
         android:text="Save" />
