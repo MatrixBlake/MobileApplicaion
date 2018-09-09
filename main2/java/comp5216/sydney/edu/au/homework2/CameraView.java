@@ -81,7 +81,8 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback, C
 
         mYuvPreviewFrame = new byte[previewWidth * previewHeight * 3 / 2];
 
-        params.setPreviewSize(previewWidth, previewHeight);
+        //params.setPreviewSize(previewWidth, previewHeight);
+        params.setPreviewSize(previewHeight, previewWidth);
 
         params.setPreviewFormat(ImageFormat.NV21);
 

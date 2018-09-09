@@ -34,14 +34,31 @@ public class MainActivity extends AppCompatActivity {
         if (!marshmallowPermission.checkPermissionForReadfiles()) {
             marshmallowPermission.requestPermissionForReadfiles();
         }
+        if(marshmallowPermission.checkPermissionForExternalStorage()){
+            marshmallowPermission.requestPermissionForExternalStorage();
+        }
 
         setAdapater();
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
+
                 Toast.makeText(MainActivity.this, "" + position,
                         Toast.LENGTH_SHORT).show();
+
+                Cursor cursor = getContentResolver().query(
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI, columns, null,
+                        null, orderBy);
+                cursor.moveToPosition(position);
+                int dataColumnIndex = cursor.getColumnIndex(MediaStore.Images.Media.DATA);
+                //Store the path of the image
+                String s= cursor.getString(dataColumnIndex);
+                Log.i("Main","s is "+s);
+
+                Intent intent = new Intent(MainActivity.this, EditImage.class);
+                intent.putExtra("path",s);
+                startActivityForResult(intent, 998);
             }
         });
     }
@@ -64,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
             arrPath[i]= cursor.getString(dataColumnIndex);
             Log.i("PATH", arrPath[i]);
         }
-// The cursor should be freed up after use with close()
+    // The cursor should be freed up after use with close()
         cursor.close();
 
         gridview.setAdapter(new ImageAdapter(this,arrPath));
@@ -76,9 +93,12 @@ public class MainActivity extends AppCompatActivity {
             marshmallowPermission.requestPermissionForCamera();
         }  else {
             Intent intent = new Intent(MainActivity.this, OpenCamera.class);
-            this.startActivity(intent);
-
-            //setAdapater();
+            this.startActivityForResult(intent,999);
         }
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.i("Main","onactivityresult");
+        setAdapater();
     }
 }

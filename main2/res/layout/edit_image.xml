@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView android:layout_height="320dp"
+        android:layout_width="240dp"
+        android:id="@+id/imageview"/>
+
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Save"
+        android:id="@+id/save"
+        app:layout_constraintTop_toBottomOf="@id/undo"
+        android:onClick="save"
+        />
+
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Crop"
+        android:onClick="crop"
+        android:id="@+id/crop"
+        app:layout_constraintStart_toEndOf="@id/cropHeight"
+        app:layout_constraintTop_toBottomOf="@id/xy"
+        />
+
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Undo"
+        android:onClick="undo"
+        android:id="@+id/undo"
+        app:layout_constraintStart_toEndOf="@id/crop"
+        app:layout_constraintTop_toBottomOf="@id/xy"
+        />
+
+    <TextView
+        android:id="@+id/xy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="beginX beginY width height"
+        app:layout_constraintTop_toBottomOf="@id/imageview"/>
+
+    <EditText
+        android:id="@+id/cropX"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:ems="10"
+        android:text="0"
+        app:layout_constraintTop_toBottomOf="@id/xy">
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/cropY"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:ems="10"
+        android:text="0"
+        app:layout_constraintTop_toBottomOf="@id/xy"
+        app:layout_constraintStart_toEndOf="@id/cropX">
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/cropWidth"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:ems="10"
+        app:layout_constraintTop_toBottomOf="@id/xy"
+        app:layout_constraintStart_toEndOf="@id/cropY" >
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/cropHeight"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:ems="10"
+        app:layout_constraintTop_toBottomOf="@id/xy"
+        app:layout_constraintStart_toEndOf="@id/cropWidth">
+        <requestFocus />
+    </EditText>
+
+
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Back"
+        android:id="@+id/back"
+        app:layout_constraintTop_toBottomOf="@id/crop"
+        app:layout_constraintStart_toEndOf="@id/save"
+        android:onClick="back"
+        />
+
+</android.support.constraint.ConstraintLayout>

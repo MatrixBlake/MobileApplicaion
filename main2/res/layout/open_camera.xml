@@ -9,14 +9,14 @@
 
     <comp5216.sydney.edu.au.homework2.CameraView
         android:id="@+id/camera_view"
-        android:layout_width="320dp"
-        android:layout_height="240dp"/>
+        android:layout_width="240dp"
+        android:layout_height="320dp"/>
 
 
     <ImageView
         android:id="@+id/snap_img"
-        android:layout_width="320dp"
-        android:layout_height="240dp"
+        android:layout_width="240dp"
+        android:layout_height="320dp"
         android:layout_below="@+id/camera_view"
         android:layout_alignParentStart="true"/>
 
