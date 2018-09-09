@@ -1,5 +1,6 @@
 package comp5216.sydney.edu.au.homework2;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -67,5 +68,17 @@ public class MainActivity extends AppCompatActivity {
         cursor.close();
 
         gridview.setAdapter(new ImageAdapter(this,arrPath));
+    }
+
+    public void onOpenCameraClick(View view){
+        if (!marshmallowPermission.checkPermissionForCamera()
+                || !marshmallowPermission.checkPermissionForExternalStorage()) {
+            marshmallowPermission.requestPermissionForCamera();
+        }  else {
+            Intent intent = new Intent(MainActivity.this, OpenCamera.class);
+            this.startActivity(intent);
+
+            //setAdapater();
+        }
     }
 }
