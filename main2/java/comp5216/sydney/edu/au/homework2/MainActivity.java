@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     final String[] columns = { MediaStore.Images.Media.DATA, MediaStore.Images.Media._ID };
     final String orderBy = MediaStore.Images.Media._ID;
     GridView gridview;
+    private int count;
 
 
     @Override
@@ -44,13 +45,12 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
 
-                Toast.makeText(MainActivity.this, "" + position,
-                        Toast.LENGTH_SHORT).show();
+               // Toast.makeText(MainActivity.this, "" + position, Toast.LENGTH_SHORT).show();
 
                 Cursor cursor = getContentResolver().query(
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI, columns, null,
                         null, orderBy);
-                cursor.moveToPosition(position);
+                cursor.moveToPosition(count-1-position);
                 int dataColumnIndex = cursor.getColumnIndex(MediaStore.Images.Media.DATA);
                 //Store the path of the image
                 String s= cursor.getString(dataColumnIndex);
@@ -69,13 +69,13 @@ public class MainActivity extends AppCompatActivity {
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI, columns, null,
                 null, orderBy);
         //Total number of images
-        int count = cursor.getCount();
+        count = cursor.getCount();
 
         //Create an array to store path to all the images
         String[] arrPath = new String[count];
 
         for (int i = 0; i < count; i++) {
-            cursor.moveToPosition(i);
+            cursor.moveToPosition(count-1-i);
             int dataColumnIndex = cursor.getColumnIndex(MediaStore.Images.Media.DATA);
             //Store the path of the image
             arrPath[i]= cursor.getString(dataColumnIndex);

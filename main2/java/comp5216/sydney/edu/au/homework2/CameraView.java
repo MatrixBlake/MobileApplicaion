@@ -14,11 +14,7 @@ import java.util.List;
 
 import static android.graphics.ImageFormat.NV21;
 
-/**
- *  Created by linSir
- *  date at 2017/5/26.
- *  describe: customView for camera it can show camera view,and call-back byte[] data
- */
+
 
 public class CameraView extends SurfaceView implements SurfaceHolder.Callback, Camera.PreviewCallback {
 

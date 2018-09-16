@@ -24,15 +24,15 @@ import java.util.Locale;
 public class EditImage extends Activity {
 
     ImageView imageView;
-    EditText cropX;
-    EditText cropY;
-    EditText cropWidth;
-    EditText cropHeight;
+    EditText startX;
+    EditText startY;
+    EditText finishX;
+    EditText finishY;
 
-    ArrayList<Integer> xs=new ArrayList<Integer>();
-    ArrayList<Integer> ys=new ArrayList<Integer>();
-    ArrayList<Integer> widths=new ArrayList<Integer>();
-    ArrayList<Integer> heights=new ArrayList<Integer>();
+    ArrayList<Integer> startXs=new ArrayList<Integer>();
+    ArrayList<Integer> startYs=new ArrayList<Integer>();
+    ArrayList<Integer> finishXs=new ArrayList<Integer>();
+    ArrayList<Integer> finishYs=new ArrayList<Integer>();
 
     Bitmap originalMap;
     Bitmap newMap;
@@ -55,62 +55,61 @@ public class EditImage extends Activity {
         originalMap=BitmapFactory.decodeFile(image_path);
         imageView.setImageBitmap(originalMap);
 
-        cropX=findViewById(R.id.cropX);
-        cropY=findViewById(R.id.cropY);
-        cropWidth=findViewById(R.id.cropWidth);
-        cropHeight=findViewById(R.id.cropHeight);
+        startX=findViewById(R.id.startX);
+        startY=findViewById(R.id.startY);
+        finishX=findViewById(R.id.finishX);
+        finishY=findViewById(R.id.finishY);
 
         originalWidth = originalMap.getWidth();
         originalHeight =originalMap.getHeight();
 
-        cropWidth.setText(originalWidth+"");
-        cropHeight.setText(originalHeight+"");
-        xs.add(0);
-        ys.add(0);
-        widths.add(originalWidth);
-        heights.add(originalHeight);
+
+        startXs.add(0);
+        startYs.add(0);
+        finishXs.add(100);
+        finishYs.add(100);
     }
 
     public void crop(View v){
-        if(cropX.getText().toString().matches("^\\d+$")
-            && cropY.getText().toString().matches("^\\d+$")
-            && cropWidth.getText().toString().matches("^\\d+$")
-            && cropHeight.getText().toString().matches("^\\d+$")){
+        if(startX.getText().toString().matches("^\\d+$")
+            && startY.getText().toString().matches("^\\d+$")
+            && finishX.getText().toString().matches("^\\d+$")
+            && finishY.getText().toString().matches("^\\d+$")){
 
-            int x1= Integer.parseInt(cropX.getText().toString());
-            int y1=Integer.parseInt(cropX.getText().toString());
-            int width1 = Integer.parseInt(cropWidth.getText().toString());
-            int height1 = Integer.parseInt(cropHeight.getText().toString());
+            int startx= Integer.parseInt(startX.getText().toString());
+            int starty=Integer.parseInt(startY.getText().toString());
+            int finishx = Integer.parseInt(finishX.getText().toString());
+            int finishy = Integer.parseInt(finishY.getText().toString());
 
-            if(x1+width1<=originalWidth && y1+height1<=originalHeight && width1>0 && height1>0){
-                xs.add(x1);
-                ys.add(y1);
-                widths.add(width1);
-                heights.add(height1);
+            if(finishx<=100 && finishy<=100 && startx>=0 && starty>=0 && finishx>startx && finishy>starty){
+                startXs.add(startx);
+                startYs.add(starty);
+                finishXs.add(finishx);
+                finishYs.add(finishy);
 
-                newMap=Bitmap.createBitmap(originalMap, x1, y1, width1, height1);
+                newMap=Bitmap.createBitmap(originalMap, originalWidth*startx/100, originalHeight*starty/100, originalWidth*(finishx-startx)/100, originalHeight*(finishy-starty)/100);
                 imageView.setImageBitmap(newMap);
             }
         }
     }
     public void undo(View v){
-        if(xs.size()>1){
-            xs.remove(xs.size()-1);
-            ys.remove(ys.size()-1);
-            widths.remove(widths.size()-1);
-            heights.remove(heights.size()-1);
+        if(startXs.size()>1){
+            startXs.remove(startXs.size()-1);
+            startYs.remove(startYs.size()-1);
+            finishXs.remove(finishXs.size()-1);
+            finishYs.remove(finishYs.size()-1);
 
-            int x=xs.get(xs.size()-1);
-            int y=ys.get(ys.size()-1);
-            int width=widths.get(widths.size()-1);
-            int height=heights.get(heights.size()-1);
+            int startx=startXs.get(startXs.size()-1);
+            int starty=startYs.get(startYs.size()-1);
+            int finishx=finishXs.get(finishXs.size()-1);
+            int finishy=finishYs.get(finishYs.size()-1);
 
-            cropX.setText(x+"");
-            cropY.setText(y+"");
-            cropWidth.setText(width+"");
-            cropHeight.setText(height+"");
+            startX.setText(startx+"");
+            startY.setText(starty+"");
+            finishX.setText(finishx+"");
+            finishY.setText(finishy+"");
 
-            newMap=Bitmap.createBitmap(originalMap, x, y, width, height);
+            newMap=Bitmap.createBitmap(originalMap, originalWidth*startx/100, originalHeight*starty/100, originalWidth*(finishx-startx)/100, originalHeight*(finishy-starty)/100);
             imageView.setImageBitmap(newMap);
         }
 
