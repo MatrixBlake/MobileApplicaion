@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp"
+    tools:context="comp5216.sydney.edu.au.homework3.Calculator">
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="Time(minutes)"
+            android:padding="10dip" />
+
+        <EditText
+            android:text=""
+            android:id="@+id/time" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="Distance(kilometers)"
+            android:padding="10dip" />
+
+        <EditText
+            android:text=""
+            android:id="@+id/distance" />
+    </TableRow>
+
+    <!-- red line -->
+    <View
+        android:layout_height="5dip"
+        android:background="#FF0000" />
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="Pace(min/km)"
+            android:padding="10dip" />
+
+        <TextView
+            android:text="0"
+            android:id="@+id/pace" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="Speed(km/hour)"
+            android:padding="10dip" />
+
+        <TextView
+            android:text="0"
+            android:id="@+id/speed" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="10dip"
+        >
+        <Button
+            android:text="Calculate"
+            android:onClick="calculate"
+            />
+    </TableRow>
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="10dip"
+        >
+        <Button
+            android:text="Back"
+            android:onClick="back"
+            />
+    </TableRow>
+
+</TableLayout>
