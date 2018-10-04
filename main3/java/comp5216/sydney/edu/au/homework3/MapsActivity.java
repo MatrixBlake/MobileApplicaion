@@ -2,7 +2,10 @@ package comp5216.sydney.edu.au.homework3;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -25,6 +28,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
@@ -72,16 +77,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     TextView rundetail;
 
     private Button btnStart;
+    private Button btnFinish;
 
     final Handler handler = new Handler();
-    final int delay = 1000;
+    final int delay = 500;
     Runnable runnable;
 
     ArrayList<RunningRecords> items;
     RecordItemDao recordItemDao;
     RecordItemDB db;
 
+    private ArrayList<Polyline> lines=new ArrayList<>();
 
+    TextView musicNameTextView;
+    MediaPlayer mpintro;
 
 
     @Override
@@ -98,7 +107,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_maps);
 
         btnStart=findViewById(R.id.btnstart);
+        btnFinish=findViewById(R.id.btnFinish);
+        btnFinish.setVisibility(View.INVISIBLE);
         rundetail=findViewById(R.id.rundetail);
+        musicNameTextView=findViewById(R.id.musicname);
 
         runnable = new Runnable() {
             public void run(){
@@ -113,9 +125,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 loc2.setLongitude(newlongti);
                 Log.i("AAA","new"+newlati+" "+newlongti);
 
+
+                Polyline line = mMap.addPolyline(new PolylineOptions()
+                        .add(new LatLng(oldlati, oldlongti), new LatLng(newlati, newlongti))
+                        .width(5)
+                        .color(Color.RED));
+                lines.add(line);
+
                 float distanceInMeters = loc1.distanceTo(loc2);
                 distances+=distanceInMeters/1000;
-                times=times+1;
+                times=times+delay/1000.0;
                 rundetail.setText("The distances is "+distances+". The time is "+times);
                 Log.i("AAA",distances+"");
                 oldlati=newlati;
@@ -314,7 +333,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void onRunStart(View v){
+        for(int i=0;i<lines.size();i++){
+            lines.get(i).remove();
+        }
         btnStart.setVisibility(View.INVISIBLE);
+        btnFinish.setVisibility(View.VISIBLE);
         distances=0;
         times=0;
         oldlati=newlati;
@@ -325,7 +348,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onRunFinish(View v){
         handler.removeCallbacks(runnable);
         btnStart.setVisibility(View.VISIBLE);
-        if(distances>0){
+        btnFinish.setVisibility(View.INVISIBLE);
+
+        if(distances>0.01){
             pace=(Math.round((times/60)/distances*100))/100.0;
             speed=(Math.round(distances/times*60*60*100))/100.0;
 
@@ -339,9 +364,35 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             items.add(new RunningRecords(dateString,Math.round(100*times/60)/100.0,Math.round(distances*100)/100.0,pace,speed));
             saveItemsToDatabase();
+        }else {
+            Toast.makeText(this, "Less than 10m, doesn't record", Toast.LENGTH_SHORT).show();
         }
 
     }
+
+    public void onOpenMusicList(View v){
+        Intent intent = new Intent(MapsActivity.this, MusicList.class);
+        startActivityForResult(intent, 997);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 997 && resultCode == RESULT_OK) {
+            String mp3name = data.getExtras().getString("name");
+            String url = data.getExtras().getString("url");
+            musicNameTextView.setText(mp3name);
+            mpintro = MediaPlayer.create(this, Uri.parse(url));
+        }
+    }
+
+    public void onMusicPlay(View v){
+        mpintro.start();
+    }
+
+    public void onMusicStop(View v){
+        mpintro.pause();
+    }
+
+
 
 
     private void readItemsFromDatabase()

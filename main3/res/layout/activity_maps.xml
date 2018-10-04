@@ -24,11 +24,44 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/musicname"
         android:text="Calculator"
         android:id="@+id/calculator"
         android:onClick="onOpenCalculator"
         />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Music"
+        android:id="@+id/music"
+        android:onClick="onOpenMusicList"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/musicname"
+        android:layout_above="@id/music"
+        android:text="xxxx"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@id/music"
+        android:text="play"
+        android:id="@+id/play"
+        android:onClick="onMusicPlay"
+        />
+
+    <Button
+        android:id="@+id/stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/play"
+        android:onClick="onMusicStop"
+        android:text="Stop" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -50,7 +83,7 @@
         android:layout_height="wrap_content"
         android:text="finish"
         android:onClick="onRunFinish"
-        android:id="@+id/finish"
+        android:id="@+id/btnFinish"
         android:layout_below="@id/btnstart"/>
 
     <TextView
