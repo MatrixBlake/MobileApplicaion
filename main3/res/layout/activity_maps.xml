@@ -33,9 +33,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="Music"
+        android:text="Select Music"
         android:id="@+id/music"
         android:onClick="onOpenMusicList"
+        android:textAllCaps="false"
         />
     <TextView
         android:layout_width="wrap_content"
@@ -44,24 +45,27 @@
         android:layout_above="@id/music"
         android:text="xxxx"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_toEndOf="@id/music"
         android:text="play"
         android:id="@+id/play"
         android:onClick="onMusicPlay"
+        android:maxHeight="3dp"
+        android:background="@drawable/play"
         />
 
-    <Button
+    <ImageButton
         android:id="@+id/stop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_toEndOf="@+id/play"
         android:onClick="onMusicStop"
-        android:text="Stop" />
+        android:text="Stop"
+        android:background="@drawable/stop"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -69,22 +73,29 @@
         android:text="LOG"
         android:id="@+id/log"
         android:onClick="onOpenLog"
+
         />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="start"
+        android:text="Start Running"
         android:onClick="onRunStart"
-        android:id="@+id/btnstart"/>
+        android:id="@+id/btnstart"
+        android:layout_below="@+id/map"
+        android:textAllCaps="false"
+        android:layout_alignParentEnd="true"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="finish"
+        android:text="Finish"
         android:onClick="onRunFinish"
         android:id="@+id/btnFinish"
-        android:layout_below="@id/btnstart"/>
+        android:layout_below="@id/map"
+        android:layout_alignParentEnd="true"
+        android:textAllCaps="false"
+        />
 
     <TextView
         android:layout_width="wrap_content"
@@ -93,6 +104,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginBottom="232dp"
         android:layout_marginStart="41dp"
-        android:text="xxx"
+        android:layout_below="@+id/map"
+        android:text=""
         android:id="@+id/rundetail"/>
 </RelativeLayout>
