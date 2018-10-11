@@ -16,6 +16,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,6 +74,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     double times;
     double pace;
     double speed;
+    private String mp3url="";
+
+    private ImageButton playBtn;
+    private ImageButton pauseBtn;
 
     TextView rundetail;
 
@@ -91,6 +96,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     TextView musicNameTextView;
     MediaPlayer mpintro;
+    TextView musicintro;
 
 
     @Override
@@ -111,6 +117,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         btnFinish.setVisibility(View.INVISIBLE);
         rundetail=findViewById(R.id.rundetail);
         musicNameTextView=findViewById(R.id.musicname);
+        playBtn=findViewById(R.id.play);
+        pauseBtn=findViewById(R.id.stop);
+
+        playBtn.setVisibility(View.INVISIBLE);
+        pauseBtn.setVisibility(View.INVISIBLE);
+        musicintro=findViewById(R.id.musicintro);
+
 
         runnable = new Runnable() {
             public void run(){
@@ -135,7 +148,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 float distanceInMeters = loc1.distanceTo(loc2);
                 distances+=distanceInMeters/1000;
                 times=times+delay/1000.0;
-                rundetail.setText("The distances is "+distances+". The time is "+times);
+                rundetail.setText("The distances is "+((int)(distances*10000))/10000.0+"km. \nThe time is "+times+"s");
                 Log.i("AAA",distances+"");
                 oldlati=newlati;
                 oldlongti=newlongti;
@@ -145,8 +158,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-        // Obtain the location TextView
-        locationTextView = (TextView) this.findViewById(R.id.location);
+//        // Obtain the location TextView
+//        locationTextView = (TextView) this.findViewById(R.id.location);
 
         // Construct a FusedLocationProviderClient.
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
@@ -230,12 +243,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             }
 
                             // Show location details on the location TextView
-                            String msg = currentOrDefault + " Location: " +
-                                    Double.toString(mLastKnownLocation.getLatitude()) + ", " +
-                                    Double.toString(mLastKnownLocation.getLongitude());
+//                            String msg = currentOrDefault + " Location: " +
+//                                    Double.toString(mLastKnownLocation.getLatitude()) + ", " +
+//                                    Double.toString(mLastKnownLocation.getLongitude());
                             newlati=mLastKnownLocation.getLatitude();
                             newlongti=mLastKnownLocation.getLongitude();
-                            locationTextView.setText(msg);
+//                            locationTextView.setText(msg);
 
                             // Add a marker for my current location on the map
 //                            MarkerOptions marker = new MarkerOptions().position(
@@ -327,9 +340,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         this.startActivityForResult(intent,999);
     }
 
+    public void clickCalculatorImage(View v){
+        onOpenCalculator(v);
+    }
+
     public void onOpenLog(View view){
         Intent intent = new Intent(MapsActivity.this, LogHistory.class);
         this.startActivityForResult(intent,998);
+    }
+
+    public void clickLogImage(View view){
+        onOpenLog(view);
     }
 
     public void onRunStart(View v){
@@ -370,7 +391,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
+    public void clickMusicImage(View v){
+        onOpenMusicList(v);
+    }
     public void onOpenMusicList(View v){
+        if(!mp3url.equals("")){
+            mpintro.pause();
+        }
         Intent intent = new Intent(MapsActivity.this, MusicList.class);
         startActivityForResult(intent, 997);
     }
@@ -378,17 +405,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 997 && resultCode == RESULT_OK) {
             String mp3name = data.getExtras().getString("name");
-            String url = data.getExtras().getString("url");
+            mp3url = data.getExtras().getString("url");
             musicNameTextView.setText(mp3name);
-            mpintro = MediaPlayer.create(this, Uri.parse(url));
+            mpintro = MediaPlayer.create(this, Uri.parse(mp3url));
+            playBtn.setVisibility(View.VISIBLE);
+            musicintro.setVisibility(View.INVISIBLE);
         }
     }
 
     public void onMusicPlay(View v){
+        playBtn.setVisibility(View.INVISIBLE);
+        pauseBtn.setVisibility(View.VISIBLE);
         mpintro.start();
     }
 
     public void onMusicStop(View v){
+        playBtn.setVisibility(View.VISIBLE);
+        pauseBtn.setVisibility(View.INVISIBLE);
         mpintro.pause();
     }
 

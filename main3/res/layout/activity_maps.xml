@@ -10,46 +10,108 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_above="@+id/location"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
-    <TextView
-        android:id="@+id/location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/log"
-        android:text="location" />
+        android:layout_width="match_parent"
+        android:layout_height="470dp" />
+
+    <!--<TextView-->
+        <!--android:id="@+id/location"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_above="@id/log"-->
+        <!--android:text="location" />-->
+
+    <ImageButton
+        android:id="@+id/calculator_image"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/calculator"
+        android:layout_alignBottom="@id/calculator"
+        android:onClick="clickCalculatorImage"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/musicname"
+        android:textSize="18sp"
+        android:textAllCaps="false"
+        android:layout_below="@id/music"
+        android:layout_marginTop="30dp"
         android:text="Calculator"
+        android:layout_toEndOf="@id/calculator_image"
+        android:layout_marginLeft="5dp"
+
         android:id="@+id/calculator"
         android:onClick="onOpenCalculator"
         />
+
+    <ImageButton
+        android:id="@+id/log_image"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="35dp"
+        android:layout_toEndOf="@id/calculator"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/log"
+        android:layout_alignBottom="@id/calculator"
+        android:onClick="clickLogImage"/>
+
+
+    <ImageButton
+        android:id="@+id/music_image"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/music"
+        android:layout_alignBottom="@id/music"
+        android:onClick="clickMusicImage"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@id/map"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="0dp"
+        android:layout_toEndOf="@+id/music_image"
+        android:layout_marginRight="10dp"
+        android:textSize="18sp"
         android:text="Select Music"
         android:id="@+id/music"
         android:onClick="onOpenMusicList"
         android:textAllCaps="false"
         />
+
     <TextView
+        android:id="@+id/musicname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/musicname"
-        android:layout_above="@id/music"
-        android:text="xxxx"/>
+        android:layout_marginLeft="2dp"
+        android:layout_toEndOf="@id/play"
+        android:layout_below="@id/map"
+        android:layout_marginTop="115dp"
+        android:textColor="#000000"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/musicintro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2dp"
+        android:layout_toEndOf="@id/music"
+        android:layout_below="@id/map"
+        android:layout_marginTop="115dp"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        android:textAllCaps="false"
+        android:text="You can play music locally"/>
 
     <ImageButton
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/map"
         android:layout_toEndOf="@id/music"
+        android:layout_marginTop="105dp"
         android:text="play"
         android:id="@+id/play"
         android:onClick="onMusicPlay"
@@ -59,18 +121,24 @@
 
     <ImageButton
         android:id="@+id/stop"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/play"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/map"
+        android:layout_toEndOf="@+id/music"
+        android:layout_marginTop="105dp"
         android:onClick="onMusicStop"
         android:text="Stop"
         android:background="@drawable/stop"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/calculator"
-        android:text="LOG"
+        android:layout_alignTop="@id/calculator"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:layout_marginLeft="5dp"
+        android:layout_toEndOf="@id/log_image"
+        android:layout_below="@id/music"
+        android:text="Running Log"
         android:id="@+id/log"
         android:onClick="onOpenLog"
 
@@ -80,6 +148,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Start Running"
+        android:textSize="18sp"
+        android:layout_marginRight="10dp"
         android:onClick="onRunStart"
         android:id="@+id/btnstart"
         android:layout_below="@+id/map"
@@ -89,7 +159,9 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="18sp"
         android:text="Finish"
+        android:layout_marginRight="10dp"
         android:onClick="onRunFinish"
         android:id="@+id/btnFinish"
         android:layout_below="@id/map"
@@ -97,14 +169,22 @@
         android:textAllCaps="false"
         />
 
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/run"
+        android:layout_below="@id/btnstart"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="20dp"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="232dp"
-        android:layout_marginStart="41dp"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+        android:textColor="#000000"
+        android:layout_marginLeft="10dp"
         android:layout_below="@+id/map"
-        android:text=""
+        android:text="Press Start Running"
         android:id="@+id/rundetail"/>
 </RelativeLayout>

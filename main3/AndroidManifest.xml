@@ -41,15 +41,15 @@
 
         <activity
             android:name=".Calculator"
-            android:label="@string/app_name" >
+            android:label="Calculator" >
         </activity>
         <activity
             android:name=".LogHistory"
-            android:label="@string/app_name" >
+            android:label="Running Log" >
         </activity>
         <activity
             android:name=".MusicList"
-            android:label="@string/app_name" >
+            android:label="Music List" >
         </activity>
     </application>
 

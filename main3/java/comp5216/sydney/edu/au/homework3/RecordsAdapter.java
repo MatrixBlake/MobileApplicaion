@@ -29,7 +29,7 @@ public class RecordsAdapter extends ArrayAdapter<RunningRecords> {
         TextView pace = (TextView) convertView.findViewById(R.id.pace);
         TextView speed = (TextView) convertView.findViewById(R.id.speed);
         // Populate the data into the template view using the data object
-        rundate.setText("Date: "+item.getRundate());
+        rundate.setText("Record: "+item.getRundate());
         runtime.setText("Time: "+item.getRuntime()+" min");
         distance.setText("Distance: "+item.getDistance()+" km");
         pace.setText("Pace: "+item.getPace()+" min/km");

@@ -9,6 +9,7 @@ import android.widget.ListView;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -57,7 +58,7 @@ public class LogHistory extends AppCompatActivity{
         for(int i=0;i<55;i++){
             if(averageItems.get(i).getDistance()>0){
                 String rundate=averageItems.get(i).getRundate();
-                double runtime=averageItems.get(i).getRuntime();
+                double runtime=((int)(averageItems.get(i).getRuntime()*100))/100.0;
                 double distance=averageItems.get(i).getDistance();
                 double pace=(Math.round(runtime/distance*100))/100.0;
                 double speed=(Math.round(distance/runtime*60*100))/100.0;
@@ -65,9 +66,11 @@ public class LogHistory extends AppCompatActivity{
             }
         }
 
+        Collections.reverse(shownItems);
         recordsAdapter2 = new RecordsAdapter(this,shownItems);
         listView2.setAdapter(recordsAdapter2);
 
+        Collections.reverse(items);
         recordsAdapter1 = new RecordsAdapter(this,items);
         listView1.setAdapter(recordsAdapter1);
 
